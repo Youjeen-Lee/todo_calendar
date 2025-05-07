@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.todoapp.backend.mapper.TodoMapper">
+
+    <!-- 할 일 등록 -->
+    <insert id="insertTodo" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO todo
+        (title, description, priority, completed, due_date, memo, created_at, updated_at)
+        VALUES
+            (#{title}, #{description}, #{priority}, #{completed}, 
+            CASE 
+                WHEN #{dueDate} IS NOT NULL THEN DATE(#{dueDate})
+                ELSE NULL 
+            END, 
+            #{memo}, NOW(), NOW())
+    </insert>
+
+    <!-- 할 일 전체 조회 -->
+    <select id="selectAllTodos" resultType="com.todoapp.backend.domain.entity.TodoEntity">
+        SELECT 
+            id,
+            title,
+            description,
+            priority,
+            completed,
+            DATE_FORMAT(due_date, '%Y-%m-%d') as dueDate,
+            memo,
+            created_at as createdAt,
+            updated_at as updatedAt
+        FROM todo
+        ORDER BY id DESC
+    </select>
+
+    <!-- 특정 할 일 조회 -->
+    <select id="selectTodoById" parameterType="long" resultType="com.todoapp.backend.domain.entity.TodoEntity">
+        SELECT 
+            id,
+            title,
+            description,
+            priority,
+            completed,
+            DATE_FORMAT(due_date, '%Y-%m-%d') as dueDate,
+            memo,
+            created_at as createdAt,
+            updated_at as updatedAt
+        FROM todo
+        WHERE id = #{id}
+    </select>
+
+    <!-- 할 일 수정 -->
+    <update id="updateTodo">
+        UPDATE todo
+        SET
+            title = #{title},
+            description = #{description},
+            priority = #{priority},
+            completed = #{completed},
+            due_date = CASE 
+                WHEN #{dueDate} IS NOT NULL THEN DATE(#{dueDate})
+                ELSE NULL 
+            END,
+            memo = #{memo},
+            updated_at = NOW()
+        WHERE id = #{id}
+    </update>
+
+    <!-- 할 일 삭제 -->
+    <delete id="deleteTodo" parameterType="long">
+        DELETE FROM todo
+        WHERE id = #{id}
+    </delete>
+
+</mapper>
