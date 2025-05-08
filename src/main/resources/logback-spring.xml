@@ -1,0 +1,21 @@
+<configuration>
+
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{36} - %msg%n</pattern>
+            <!--
+                %d{패턴}         → 로그 발생 시간 (예: 2025-05-08 20:00:00)
+                %-5level         → 로그 레벨 (INFO, DEBUG 등, 5칸으로 고정 정렬)
+                %logger{36}      → 클래스 이름 (최대 36글자로 출력)
+                %msg             → 로그 메시지 내용
+                %n               → 개행
+            -->
+        </encoder>
+    </appender>
+
+    <root level="INFO">
+        <appender-ref ref="console" />
+    </root>
+
+    <logger name="com.todoapp.backend" level="DEBUG" />
+</configuration>

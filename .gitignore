@@ -1,3 +1,6 @@
+#########################################
+# BACKEND (Spring Boot - Maven)
+#########################################
 HELP.md
 target/
 !.mvn/wrapper/maven-wrapper.jar
@@ -31,3 +34,24 @@ build/
 
 ### VS Code ###
 .vscode/
+
+#########################################
+# FRONTEND (React)
+#########################################
+
+/frontend/node_modules/
+/frontend/.pnp
+/frontend/.pnp.js
+/frontend/coverage
+/frontend/build
+
+# 환경 변수
+/frontend/.env.local
+/frontend/.env.development.local
+/frontend/.env.test.local
+/frontend/.env.production.local
+
+# 로그 파일
+/frontend/npm-debug.log*
+/frontend/yarn-debug.log*
+/frontend/yarn-error.log*
