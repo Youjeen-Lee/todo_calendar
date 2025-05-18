@@ -105,7 +105,6 @@ todoapp/
 1. 프로젝트 클론
    ```bash
    git clone https://github.com/Youjeen-Lee/todo_calendar.git
-   cd todoapp
    ```
 
 2. Spring Boot 애플리케이션 실행
@@ -159,7 +158,6 @@ todoapp/
 - **주요 기능**:
   - 우선순위별 정렬
   - 완료 상태 토글
-  - 드래그 앤 드롭 정렬
 
 #### TodoModal 컴포넌트
 - **사용 이유**: 할 일 추가/수정을 위한 직관적인 인터페이스 제공
@@ -175,7 +173,6 @@ todoapp/
 - **주요 기능**:
   - CRUD 작업 처리
   - 데이터 유효성 검증
-  - 에러 처리
 
 #### TodoService
 - **사용 이유**: 비즈니스 로직 처리
