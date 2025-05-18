@@ -105,7 +105,6 @@ todoapp/
 1. 프로젝트 클론
    ```bash
    git clone https://github.com/Youjeen-Lee/todo_calendar.git
-   cd todoapp
    ```
 
 2. Spring Boot 애플리케이션 실행
