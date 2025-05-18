@@ -1,6 +1,9 @@
 #########################################
 # BACKEND (Spring Boot - Maven)
 #########################################
+
+*.properties
+
 HELP.md
 target/
 !.mvn/wrapper/maven-wrapper.jar
