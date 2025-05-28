@@ -97,14 +97,16 @@ function App() {
         e.preventDefault();
         if (!newTodo.trim()) return;
 
+        let tempTodo = null;  // 밖에서 선언
+
+
         try {
             // 한국 시간대로 날짜 설정
             const koreanDate = new Date(selectedDate);
             koreanDate.setHours(9, 0, 0, 0); // 한국 시간 00:00:00
             const formattedDueDate = koreanDate.toISOString();
 
-            // 임시 ID로 UI에 먼저 추가
-            const tempTodo = {
+            tempTodo = {
                 id: Date.now(),
                 title: newTodo,
                 completed: false,
