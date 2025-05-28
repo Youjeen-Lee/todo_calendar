@@ -2,6 +2,7 @@ package com.todoapp.backend.service.impl;
 
 import com.todoapp.backend.domain.dto.TodoDTO;
 import com.todoapp.backend.domain.entity.TodoEntity;
+import com.todoapp.backend.exception.TodoNotFoundException;
 import com.todoapp.backend.mapper.TodoMapper;
 import com.todoapp.backend.service.TodoService;
 import lombok.RequiredArgsConstructor;
@@ -36,6 +37,9 @@ public class TodoServiceImpl implements TodoService {
     @Override
     public TodoDTO getTodoById(Long id) {
         TodoEntity entity = todoMapper.selectTodoById(id);
+        if (entity == null) {
+            throw new TodoNotFoundException("해당 ID의 할 일이 존재하지 않습니다.");
+        }
         return entityToDto(entity);
     }
 
@@ -47,6 +51,10 @@ public class TodoServiceImpl implements TodoService {
 
     @Override
     public void deleteTodo(Long id) {
+        TodoEntity entity = todoMapper.selectTodoById(id);
+        if (entity == null) {
+            throw new TodoNotFoundException("삭제 실패: 해당 할 일을 찾을 수 없습니다.");
+        }
         todoMapper.deleteTodo(id);
     }
 

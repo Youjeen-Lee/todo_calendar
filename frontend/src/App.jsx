@@ -7,6 +7,9 @@ import TodoModal from './components/Todo/TodoModal';
 import { AddTodoButton } from './components/UI/Buttons';
 import { formatDate, setKoreanMidnight } from './utils/dateUtils';
 import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 // API 기본 주소
 const API_BASE_URL = 'http://localhost:8082/api';
@@ -49,7 +52,8 @@ function App() {
             const res = await axios.get(`${API_BASE_URL}/todos`);
             setTodos(res.data);
         } catch (err) {
-            alert('할 일 목록 불러오기 실패');
+            const errorMsg = err.response?.data || '할 일 목록 불러오기 실패';
+            toast.error(errorMsg);
             console.error(err);
         }
     };
@@ -126,8 +130,9 @@ function App() {
                 ));
             }
         } catch (err) {
-            alert('할 일 추가 실패');
-            setTodos(prevTodos => prevTodos.filter(todo => todo.id !== Date.now()));
+            const errorMsg = err.response?.data || '할 일 추가 실패';
+            toast.error(errorMsg);
+            setTodos(prevTodos => prevTodos.filter(todo => todo.id !== tempTodo.id));
             console.error(err);
         }
     };
@@ -176,8 +181,8 @@ function App() {
             setEditTitle('');
             setEditPriority('MID');
         } catch (err) {
-            alert('수정 실패');
-            // 에러 발생 시 원래 상태로 복구
+            const errorMsg = err.response?.data || '수정 실패';
+            toast.error(errorMsg);
             setTodos(prevTodos => prevTodos.map(todo =>
                 todo.id === editingTodo.id ? editingTodo : todo
             ));
@@ -191,7 +196,8 @@ function App() {
             await axios.delete(`${API_BASE_URL}/todos/${id}`);
             setTodos(prev => prev.filter(todo => todo.id !== id));
         } catch (err) {
-            alert('삭제 실패');
+            const errorMsg = err.response?.data || '삭제 실패';
+            toast.error(errorMsg);
             console.error(err);
         }
     };
@@ -218,8 +224,8 @@ function App() {
                 ));
             }
         } catch (err) {
-            alert('완료 상태 변경 실패');
-            // 에러 발생 시 원래 상태로 복구
+            const errorMsg = err.response?.data || '완료 상태 변경 실패';
+            toast.error(errorMsg);
             setTodos(prevTodos => prevTodos.map(todo =>
                 todo.id === id ? target : todo
             ));
@@ -236,6 +242,8 @@ function App() {
 
     return (
         <Container>
+            <ToastContainer position="top-right" autoClose={3000} />
+
             <TitleHeader />
             <CustomCalendar selectedDate={selectedDate} onDateChange={handleDateChange} todos={todos} />
 
